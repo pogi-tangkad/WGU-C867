@@ -1,7 +1,7 @@
 // Date: 2024-08-31
 // Author: Kevin Repking
 
-#include "Student.cpp"
+#include "include/Student.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -27,7 +27,7 @@ int main() {
   string numDays[3];
   string degree;
 
-  Student students[5];
+  Student *students = new Student[5];
 
 
 
@@ -51,16 +51,16 @@ int main() {
 
 
     
-    Degree::DegreeProgram newDegree;
+    DegreeProgram newDegree;
 
     if (degree == "SECURITY") {
-      newDegree = Degree::SECURITY;
+      newDegree = SECURITY;
     }
     else if (degree == "NETWORK") {
-      newDegree = Degree::NETWORK;
+      newDegree = NETWORK;
     }
     else {
-      newDegree = Degree::SOFTWARE;
+      newDegree = SOFTWARE;
     }
     
     int newAge = stoi(age);
@@ -93,6 +93,9 @@ int main() {
     }
 
   }
+
+
   cout << endl;
+  delete[] students;
   return 0;
 }

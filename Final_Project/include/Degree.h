@@ -3,19 +3,11 @@
 
 #ifndef DEGREE_H
 #define DEGREE_H
-#include <map>
-using namespace std;
 
-
-class Degree {
-  public:
-    enum DegreeProgram {
-      SECURITY,
-      NETWORK,
-      SOFTWARE
-    };
-
+enum DegreeProgram {
+  SECURITY,
+  NETWORK,
+  SOFTWARE
 };
-
 
 #endif

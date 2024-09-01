@@ -10,10 +10,10 @@
 using namespace std;
 
 
-class Student : public Degree{
+class Student {
   public:
     // Constructor
-    Student(){};
+    Student() {};
     Student(string newStudentID,
             string newFirstName,
             string newLastName,
@@ -25,7 +25,7 @@ class Student : public Degree{
             DegreeProgram newDegreeProgram);
 
     // Setters
-    void SetStudentID(int newStudentID);
+    void SetStudentID(string newStudentID);
     void SetFirstName(string newFirstName);
     void SetLastName(string newLastName);
     void SetEmailAddress(string newEmailAddress);

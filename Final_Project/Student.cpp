@@ -3,6 +3,9 @@
 
 
 #include "include/Student.h"
+#include <iostream>
+#include <string>
+using namespace std;
 
 // Constructor
 Student::Student(string newStudentID,
@@ -27,7 +30,7 @@ Student::Student(string newStudentID,
 }
 
 // Setters
-void Student::SetStudentID(int newStudentID) {
+void Student::SetStudentID(string newStudentID) {
     studentID = newStudentID;
 }
 
@@ -82,7 +85,7 @@ const int* Student::GetNumDays() const {
     return numDays;
 }
 
-Degree::DegreeProgram Student::GetDegreeProgram() const {
+DegreeProgram Student::GetDegreeProgram() const {
     return degreeProgram;
 }
 
@@ -97,13 +100,13 @@ void Student::Print() const {
          << numDays[1] << ", "
          << numDays[2] << "}" << "\t"
          << "Degree Program: ";
-         if (degreeProgram == 0) {
+         if (degreeProgram == SECURITY) {
             cout << "SECURITY";
          }
-         if (degreeProgram == 1) {
+         if (degreeProgram == NETWORK) {
             cout << "NETWORK";
          }
-         if (degreeProgram == 2) {
+         if (degreeProgram == SOFTWARE) {
             cout << "SOFTWARE";
          }
          cout << endl;
