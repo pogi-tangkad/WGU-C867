@@ -13,13 +13,8 @@ class Degree {
       SECURITY,
       NETWORK,
       SOFTWARE
-    }; 
-  /*
-  const map<DegreeProgram, string> degreeMap{{SECURITY, "SECURITY"},
-                                             {NETWORK, "NETWORK"},
-                                             {SOFTWARE, "SOFTWARE"}
-                                             };
-  */
+    };
+
 };
 
 
