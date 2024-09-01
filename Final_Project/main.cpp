@@ -1,7 +1,7 @@
 // Date: 2024-08-31
 // Author: Kevin Repking
 
-#include "include/Student.h"
+#include "include/Roster.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -19,83 +19,41 @@ int main() {
     "A5,Kevin,Repking,krepki1@wgu.edu,44,15,25,35,SOFTWARE" 
   };
 
-  string studendID;
-  string firstName;
-  string lastName;
-  string emailAddress;
-  string age;
-  string numDays[3];
-  string degree;
-
-  Student *students = new Student[5];
-
-
-
   cout << "Course: Scripting & Programming - Applications - C867\n"
        << "Language: C++\n"
        << "WGU Student ID: 012271818\n"
-       << "Name: Kevin Repking" << endl;
+       << "Name: Kevin Repking" << endl << endl;
 
-  for (int i = 0; i < 5; i++) {
-    istringstream iss(studentData[i]);
-
-    getline(iss, studendID, ',');
-    getline(iss, firstName, ',');
-    getline(iss, lastName, ',');
-    getline(iss, emailAddress, ',');
-    getline(iss, age, ',');
-    getline(iss, numDays[0], ',');
-    getline(iss, numDays[1], ',');
-    getline(iss, numDays[2], ',');
-    getline(iss, degree, ',');
+  Roster classRoster(studentData);
 
 
-    
-    DegreeProgram newDegree;
+  classRoster.printAll();
 
-    if (degree == "SECURITY") {
-      newDegree = SECURITY;
-    }
-    else if (degree == "NETWORK") {
-      newDegree = NETWORK;
-    }
-    else {
-      newDegree = SOFTWARE;
-    }
-    
-    int newAge = stoi(age);
-        
-    int newNumDays0 = stoi(numDays[0]);
-    
-    int newNumDays1 = stoi(numDays[1]);
-    
-    int newNumDays2 = stoi(numDays[2]);
+  cout << "Invalid Emails:" << endl;
+  classRoster.printInvalidEmails();
+  cout << endl;
 
-    students[i] = Student(studendID,
-                          firstName,
-                          lastName,
-                          emailAddress,
-                          newAge,
-                          newNumDays0,
-                          newNumDays1,
-                          newNumDays2,
-                          newDegree);
-
+  cout << "Average days in Course:" << endl;
+  for (int i = 0; i < classRoster.rosterSize; i++) {
+    classRoster.printAverageDaysInCourse(classRoster.classRosterArray[i].GetStudentID());
   }
-
-  string tester = "A3";
-  for (int j = 0; j < 5; j++) {
-    students[j].Print();
+  cout << endl;
 
 
-    if (tester == students[j].GetStudentID()) {
-      cout << "FOUND JACK!" << endl;
-    }
+  cout << "Students in Software" << endl;
+  classRoster.printByDegreeProgram(SOFTWARE);
+  cout << endl;
 
-  }
+  cout << "Remove student with ID \"A3\"" << endl;
+  classRoster.remove("A3");
+  classRoster.printAll();
+
+  cout << "Remove student with ID \"A3\"" << endl;
+  classRoster.remove("A3");
+
 
 
   cout << endl;
-  delete[] students;
+
   return 0;
 }
