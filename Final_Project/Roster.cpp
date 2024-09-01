@@ -77,7 +77,7 @@ Roster::Roster(const string studentArr[5]) {
                    int daysInCourse2,
                    int daysInCourse3,
                    DegreeProgram degreeProgram) {
-    classRosterArray[this->rosterPosition] = Student(studentID,
+    classRosterArray[rosterSize] = Student(studentID,
                                              firstName,
                                              lastName,
                                              emailAddress,
@@ -86,21 +86,88 @@ Roster::Roster(const string studentArr[5]) {
                                              daysInCourse2,
                                              daysInCourse3,
                                              degreeProgram);
-    this->rosterPosition++;    
+    rosterSize++;    
   }
 
-  void Roster::remove(string studentID) {
-    for (int i = 0; i < 5; i++) {
-      if (classRosterArray[i].GetStudentID() == studentID) {
-        classRosterArray[i].SetStudentID("");
+  void Roster::printAll() {
+    for (int i = 0; i < rosterSize; i++) {
+      if (classRosterArray[i].GetStudentID() != "") {
+        classRosterArray[i].Print();
+      }
+    }
+    cout << endl;
+  }
+
+  void Roster::printInvalidEmails() {
+    string email;
+    for (int i = 0; i < rosterSize; i++) {
+      bool atSymbol = false;
+      bool singlePeriod = false;
+      bool badEmail = false;
+      email = classRosterArray[i].GetEmailAddress();
+      for (int j = 0; j < email.length(); j++) {
+        if (email[j] == '@' && !atSymbol) {
+          atSymbol = true;
+        }
+        else if (email[j] == '@' && atSymbol) {
+          badEmail = true;
+          break;
+        }
+        if (email[j] == '.' && atSymbol && !singlePeriod) {
+          singlePeriod = true;
+        }
+        else if (email[j] == '.' && atSymbol && singlePeriod) {
+          badEmail = true;
+          break;
+        }
+        if (email[j] == ' ') {
+          badEmail = true;
+          break;
+        }
+      }
+      if (badEmail || !atSymbol || !singlePeriod) {
+        cout << email << endl;
       }
     }
   }
 
-  void Roster::printAll() {
-    for (int i = 0; i < 5; i++) {
-      if (classRosterArray[i].GetStudentID() != "") {
+  void Roster::printAverageDaysInCourse(string studentID) {
+    for (int i = 0; i < rosterSize; i++) {
+      if (classRosterArray[i].GetStudentID() == studentID) {
+        Student student = classRosterArray[i];
+        int averageDays = 0;
+        for (int j = 0; j < 3; j++) {
+          averageDays += student.GetNumDays()[j];
+        }
+        cout << student.GetFirstName() << " "
+             << student.GetLastName() << ": "
+             << averageDays / 3 << endl;
+      }
+    }
+  }
+
+  void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
+    for (int i = 0; i < rosterSize; i++) {
+      if (classRosterArray[i].GetDegreeProgram() == degreeProgram) {
         classRosterArray[i].Print();
       }
+    }
+  }
+
+  void Roster::remove(string studentID) {
+    bool swap = false;
+    for (int i = 0; i < rosterSize; i++) {
+      if (classRosterArray[i].GetStudentID() == studentID) {
+        swap = true;
+      }
+      if (swap && i < (rosterSize - 1)) {
+        classRosterArray[i] = classRosterArray[i + 1];
+      }
+      if (swap && i == (rosterSize - 1)) {
+        classRosterArray[i] = Student();
+      }
+    }
+    if (!swap) {
+      cout << "Student with ID " << studentID << " not found" << endl;
     }
   }

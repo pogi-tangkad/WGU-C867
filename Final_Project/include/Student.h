@@ -47,12 +47,12 @@ class Student {
 
   private:
     // Variable for Student Data
-    string studentID;
-    string firstName;
-    string lastName;
-    string emailAddress;
-    int age;
-    int numDays[3];
+    string studentID = "";
+    string firstName = "";
+    string lastName = "";
+    string emailAddress = "";
+    int age = 0;
+    int numDays[3] = {0, 0, 0};
     DegreeProgram degreeProgram;
 };
 

@@ -29,6 +29,30 @@ int main() {
 
   classRoster.printAll();
 
+  cout << "Invalid Emails:" << endl;
+  classRoster.printInvalidEmails();
+  cout << endl;
+
+  cout << "Average days in Course:" << endl;
+  for (int i = 0; i < classRoster.rosterSize; i++) {
+    classRoster.printAverageDaysInCourse(classRoster.classRosterArray[i].GetStudentID());
+  }
+  cout << endl;
+
+
+  cout << "Students in Software" << endl;
+  classRoster.printByDegreeProgram(SOFTWARE);
+  cout << endl;
+
+  cout << "Remove student with ID \"A3\"" << endl;
+  classRoster.remove("A3");
+  classRoster.printAll();
+
+  cout << "Remove student with ID \"A3\"" << endl;
+  classRoster.remove("A3");
+
+
+
   cout << endl;
 
   return 0;

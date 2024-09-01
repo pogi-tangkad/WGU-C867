@@ -36,10 +36,13 @@ class Roster {
 
     void printByDegreeProgram(DegreeProgram degreeProgram);
 
+    void printAverageDaysInCourse(string studentID);
+
+    int rosterSize = 0;
+
+    Student* classRosterArray = new Student[5];
 
   private:
-    Student* classRosterArray = new Student[5];
-    int rosterPosition = 0;
 
 };
 
