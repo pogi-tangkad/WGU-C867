@@ -11,6 +11,8 @@ using namespace std;
 // Constructor
 Roster::Roster(const string studentArr[5]) {
 
+  // Initialize variable to be parsed from each
+  // comma separated string
   string studendID;
   string firstName;
   string lastName;
@@ -19,6 +21,8 @@ Roster::Roster(const string studentArr[5]) {
   string numDays[3];
   string degree;
 
+  // Iterate over the 5 strings passed by the array
+  // and parse out the commas to assign the variables
   for (int i = 0; i < 5; i++) {
     istringstream iss(studentArr[i]);
 
@@ -32,15 +36,15 @@ Roster::Roster(const string studentArr[5]) {
     getline(iss, numDays[2], ',');
     getline(iss, degree, ',');
 
-    
+    // Convert the age and days in course to integers
+    // for the Student object created    
     int newAge = stoi(age);
-        
-    int newNumDays0 = stoi(numDays[0]);
-    
-    int newNumDays1 = stoi(numDays[1]);
-    
+    int newNumDays0 = stoi(numDays[0]);    
+    int newNumDays1 = stoi(numDays[1]);    
     int newNumDays2 = stoi(numDays[2]);
     
+    // Create a DegreeProgram enum variable and check
+    // against the degree string
     DegreeProgram newDegree;
 
     if (degree == "SECURITY") {
@@ -52,6 +56,8 @@ Roster::Roster(const string studentArr[5]) {
     else {
       newDegree = SOFTWARE;
     }
+
+    // Call the Roster::add function with the new variables
     this->add(studendID,
               firstName,
               lastName,
@@ -68,6 +74,7 @@ Roster::Roster(const string studentArr[5]) {
     delete[] classRosterArray;
   }
 
+  // Take student data, create Student, and assign to array
   void Roster::add(string studentID,
                    string firstName,
                    string lastName,
@@ -89,6 +96,7 @@ Roster::Roster(const string studentArr[5]) {
     rosterSize++;    
   }
 
+  // For each student in array, call its Print function
   void Roster::printAll() {
     for (int i = 0; i < rosterSize; i++) {
       if (classRosterArray[i].GetStudentID() != "") {
@@ -98,14 +106,22 @@ Roster::Roster(const string studentArr[5]) {
     cout << endl;
   }
 
+  // Check the required parameters for a valid email against
+  // each student and print the invalid emails to stdout
   void Roster::printInvalidEmails() {
     string email;
+
     for (int i = 0; i < rosterSize; i++) {
+      // start by setting false flags
       bool atSymbol = false;
       bool singlePeriod = false;
       bool badEmail = false;
+      
+      // get email for student
       email = classRosterArray[i].GetEmailAddress();
+
       for (int j = 0; j < email.length(); j++) {
+        // check for only one(1) @ symbol
         if (email[j] == '@' && !atSymbol) {
           atSymbol = true;
         }
@@ -113,6 +129,7 @@ Roster::Roster(const string studentArr[5]) {
           badEmail = true;
           break;
         }
+        // check for only one(1) period AFTER the @ symbol
         if (email[j] == '.' && atSymbol && !singlePeriod) {
           singlePeriod = true;
         }
@@ -120,11 +137,15 @@ Roster::Roster(const string studentArr[5]) {
           badEmail = true;
           break;
         }
+        // check for spaces
         if (email[j] == ' ') {
           badEmail = true;
           break;
         }
       }
+
+      // if email flagged as bad or missing @ or .
+      // print email address to stdout
       if (badEmail || !atSymbol || !singlePeriod) {
         cout << email << endl;
       }
@@ -136,6 +157,7 @@ Roster::Roster(const string studentArr[5]) {
       if (classRosterArray[i].GetStudentID() == studentID) {
         Student student = classRosterArray[i];
         int averageDays = 0;
+        // standard find average loop
         for (int j = 0; j < 3; j++) {
           averageDays += student.GetNumDays()[j];
         }
@@ -146,6 +168,7 @@ Roster::Roster(const string studentArr[5]) {
     }
   }
 
+  // Search each student for matching degree program
   void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
     for (int i = 0; i < rosterSize; i++) {
       if (classRosterArray[i].GetDegreeProgram() == degreeProgram) {
@@ -155,7 +178,11 @@ Roster::Roster(const string studentArr[5]) {
   }
 
   void Roster::remove(string studentID) {
+    // bool to check if student was found
     bool swap = false;
+
+    // iterate over students. if found, remove student
+    // at index and shift remaining students left
     for (int i = 0; i < rosterSize; i++) {
       if (classRosterArray[i].GetStudentID() == studentID) {
         swap = true;
@@ -167,6 +194,7 @@ Roster::Roster(const string studentArr[5]) {
         classRosterArray[i] = Student();
       }
     }
+    // no student found
     if (!swap) {
       cout << "Student with ID " << studentID << " not found" << endl;
     }
