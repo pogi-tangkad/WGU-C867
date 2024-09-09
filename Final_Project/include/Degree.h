@@ -4,6 +4,7 @@
 #ifndef DEGREE_H
 #define DEGREE_H
 
+// enum used for student degreeProgram
 enum DegreeProgram {
   SECURITY,
   NETWORK,
