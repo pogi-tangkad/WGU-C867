@@ -89,7 +89,7 @@ DegreeProgram Student::GetDegreeProgram() const {
     return degreeProgram;
 }
 
-// Print Student information
+// Print Student information to stdout with tab separation
 void Student::Print() const {
     cout << studentID << "\t"
          << "First Name: " << firstName << "\t"
